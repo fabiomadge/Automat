@@ -1,6 +1,6 @@
 # Automat
 
-* Automat* is a simple Java implementation of a formal language designed by me to model a finite-state machine. Since it was made with my basic CS class in mind, you can expect anything but feature completion.
+*Automat* is a simple Java implementation of a formal language designed by me to model a finite-state machine. Since it was made with my basic CS class in mind, you can expect anything but feature completion.
 
 The [wiki](https://www.github.com/fabiomadge/Automat/wiki) will help you, if you wish to start out fresh.
 
