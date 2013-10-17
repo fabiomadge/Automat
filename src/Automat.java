@@ -27,6 +27,13 @@ class Automat{
 	}
 
 	public State[] evalStates(String s){
+
+		//eliminates line breakes
+		s = s.replace("\n", " ");
+
+		//removes tabs
+		s = s.replace("\t", " ");
+
 		//Slices the input into parts
 		String[] parts = s.split("\\;");
 
@@ -54,7 +61,7 @@ class Automat{
 		//extracts the change infos associated to each state
 		String[] stateCommands = new String[sts.length];
 		for(int i = 0; i < sts.length; i++){
-			stateCommands[i] = sts[i].split("\\:")[1].trim();
+			stateCommands[i] = expand(sts[i].split("\\:")[1].trim());
 		}
 
 		//creates the new states
@@ -114,5 +121,48 @@ class Automat{
 			if(ss[i].equals(s)) return i;
 		}
 		return -1;
+	}
+
+	public String expand(String s){
+
+		//devide by results
+		String[] inputs = s.split("\\s+");
+
+		//expand ranges
+		for(int i = 0; i < inputs.length; i++){
+			String keys = inputs[i].split("\\->")[0].trim();
+			while(keys.indexOf("..") >= 0){
+				String range = keys.substring(keys.indexOf("..")-3, keys.indexOf("..")+5);
+				keys = keys.replace(range, range(range));
+			}
+			//replaces the original with the expanded version
+			inputs[i] = inputs[i].replace(inputs[i].split("\\->")[0].trim(), keys);
+		}
+
+		String ret = "";
+
+		//give every key a result and build new string
+		for(int i = 0; i < inputs.length; i++){
+			String result = inputs[i].split("\\->")[1].trim();
+			String keys = inputs[i].split("\\->")[0].trim();
+			int next = 1;
+			while(next < keys.length()){
+				ret+= "'" + keys.charAt(next) + "'->" + result + " ";
+				next = next+3;
+			}
+		}
+
+		return ret.trim();
+	}
+
+	public String range(String s){
+		String res = "";
+		char bottom = s.charAt(1);
+		char top = s.charAt(6);
+		while(bottom <= top){
+			res+= "'" + bottom + "'";
+			bottom++;
+		}
+		return res;
 	}
 }

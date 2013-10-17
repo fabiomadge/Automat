@@ -23,6 +23,10 @@ Instead of typing out a state translation for every element of the alphabet, you
 	
 The name of a state can be anything that can be stored in a String.
 
+	0: '0''1'..'5'->small '6'..'7''8''9'->big
+
+You can assign multiple characters to one result. To make this even easier you can use ranges.
+
 ## Quick start
 
 The easiest way to get started is to simply clone the repository:
