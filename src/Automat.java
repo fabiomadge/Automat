@@ -1,28 +1,28 @@
 class Automat{
 
 	String alph;
-	State state;
+	State current;
 	State[] states;
 
 	public Automat(String automat){
 		alph = "";
-		state = null;
+		current = null;
 		states = evalStates(automat);
 	}
 
 	private void changeState(char c){
-		if(state == null) state = states[0];
-		state = state.changeState(c);
+		if(current == null) current = states[0];
+		current = current.changeState(c);
 	}
 
 	public boolean checkWord(String s){
-		state = states[0];
+		current = states[0];
 		for(int i = 0; i < s.length(); i ++){
 			if(alph.indexOf(s.charAt(i)) >= 0){
 				changeState(s.charAt(i));
 			}
 		}
-		return state.end();
+		return current.end();
 	}
 
 	public State[] evalStates(String s){
@@ -110,7 +110,7 @@ class Automat{
 			ss[i].setChangers(changers);
 		}
 
-		state = ss[0];
+		current = ss[0];
 
 		return ss;
 	}
