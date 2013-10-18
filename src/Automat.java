@@ -16,7 +16,6 @@ class Automat{
 	}
 
 	public boolean checkWord(String s){
-		s = s.toLowerCase();
 		state = states[0];
 		for(int i = 0; i < s.length(); i ++){
 			if(alph.indexOf(s.charAt(i)) >= 0){
